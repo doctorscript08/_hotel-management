@@ -1,0 +1,43 @@
+main{
+    padding-top: 40px;
+}
+main fieldset{
+    display: flex;
+    justify-content: space-around;
+    width: 800px;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+}
+main fieldset form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 15px;
+    background-color: rgb(247, 244, 244);
+    height: 350px;
+    margin-top: 15px;
+    
+}
+main fieldset form h2{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+fieldset form input{
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid;
+    border-left: 1px solid lightgray;
+    outline: none;
+}
+fieldset form input[type='submit'] {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 10px;
+}

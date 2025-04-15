@@ -1,0 +1,55 @@
+
+main{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+
+}
+main .tblC{
+    pading: 10px;
+    height: 200px;
+    width: 500px;
+    background-color: #eaeaea;
+    border: 1px solid gray;
+
+}
+.tblC table{
+    height: 20px;
+    width: 500px;
+}
+.tblC td{
+    width: 50px;
+    height: 10;
+}
+.form fieldset{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+    gap: 5px;
+    padding-top: 30px;
+}
+.form fieldset h2{
+    text-align: center;
+
+}
+.form fieldset input[type=text]{
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid;
+}
+.form fieldset select{
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid gray;
+}
+.form fieldset input[type=submit] {
+    width: 300px;
+    height: 30px;
+}

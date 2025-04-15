@@ -1,0 +1,42 @@
+
+main{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 50px;
+}
+.tbl{
+    width: 400px;
+    height: 200px;
+    background-color: #eaeaea ;
+    border: 1px solid gray;
+}
+main .forms{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+main .forms fieldset{
+    padding: 10px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    border-radius: 15px;
+}
+main .forms fieldset input{
+    width: 220px;
+    height: 30px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid lightgray;
+    border-bottom: 1px solid;
+}
+.forms fieldset select{
+    height: 30px;
+    border: 1px solid gray;
+}
+.forms fieldset input[type=submit] {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
