@@ -1,0 +1,65 @@
+.section {
+  transition: all 0.3s ease;
+}
+
+.card {
+  transition: transform 0.2s;
+  margin-bottom: 1rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table {
+  font-size: 0.9rem;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .table {
+    font-size: 0.8rem;
+  }
+}
+
+.btn {
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+#resumo-conta {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.status-pending {
+  color: #ffc107;
+}
+
+.status-active {
+  color: #28a745;
+}
+
+.status-completed {
+  color: #6c757d;
+}
