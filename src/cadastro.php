@@ -1,5 +1,44 @@
+<?php
+    session_start();
+    require_once './php/Conexao.php';
+    require_once './php/Cliente.php';
+
+    if (isset($_POST['nome'], $_POST['email'], $_POST['tel'], $_POST['bi'], $_POST['password'], $_POST['confirm_password']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        if ($_POST['password'] === $_POST['confirm_password']) {
+            $cliente = new Cliente($_POST['nome'], $_POST['email'], $_POST['password'], $_POST['tel'], $_POST['bi'], 'cliente');
+
+            if ($cliente->cadastrar(Conexao::conectar())) {
+                echo "
+                    <script>
+                        alert('Cadastro efectuado com sucesso!')
+                    </script>
+                ";
+
+                $_SESSION['nome'] = $_POST['nome'];
+                $_SESSION['password'] = $_POST['email'];
+                $_SESSION['password'] = $_POST['password'];
+
+                header('Location: http://localhost/_hotel-management/index.php');
+                exit();
+            }
+        } else {
+            echo "
+                <script>
+                    alert('As palavras passe devem ser iguais!')
+                </script>
+            ";
+        }
+    } else {
+        echo "
+            <script>
+                alert('Falha ao criar conta!Tente novamente!')
+            </script>
+        ";
+    }
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-AO">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,15 +65,23 @@
             <div class="ilust">
                 <img src="./assets/images/cad-copy.png" alt="cadastro-ilustração">
             </div>
-            <form action="" method="get">
+            <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
                 <h2>Crie sua Conta</h2>
                 <p>Já tem uma conta? <a href="login.php">Login</a></p>
-                <input type="text" name="txtNome" id="txtNome" placeholder="Nome">
-                <input type="email" name="txtEmail" id="txtEmail" placeholder="E-mail">
-                <input type="tel" name="txtTel" id="txtTel" placeholder="Telefone">
-                <input type="text" name="txtBi" id="txtBi" placeholder="BI">
-                <input type="password" name="txtSenha" id="txtSenha" placeholder="Senha">
-                <input type="password" name="txtConfirmSenha" id="txtConfirmSenha" placeholder="Confrimar Senha">
+
+                <input type="text" name="nome" id="nome" placeholder="Nome" required>
+
+                <input type="email" name="email" id="email" placeholder="E-mail" required>
+
+                <input type="tel" name="tel" id="tel" placeholder="Telefone" required>
+
+                <input type="text" name="bi" id="bi" placeholder="BI" required>
+
+                <input type="password" name="password" id="password" placeholder="Senha" required>
+                
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confrimar Senha" required>
+                <span class="erro"></span>
+
                 <input type="submit" value="Cadastrar">
             </form>
         </fieldset>
