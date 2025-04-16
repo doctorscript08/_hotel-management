@@ -16,8 +16,7 @@
                 ";
 
                 $_SESSION['nome'] = $_POST['nome'];
-                $_SESSION['password'] = $_POST['email'];
-                $_SESSION['password'] = $_POST['password'];
+                $_SESSION['email'] = $_POST['email'];
 
                 header('Location: http://localhost/_hotel-management/index.php');
                 exit();
@@ -80,7 +79,6 @@
                 <input type="password" name="password" id="password" placeholder="Senha" required>
                 
                 <input type="password" name="confirm_password" id="confirm_password" placeholder="Confrimar Senha" required>
-                <span class="erro"></span>
 
                 <input type="submit" value="Cadastrar">
             </form>
