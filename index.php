@@ -1,3 +1,16 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['id_usuario'], $_SESSION['nome'], $_SESSION['email'], $_SESSION['role'])) {
+        $login = true;
+        $id_usuario = $_SESSION['id_usuario'];
+        $nome = $_SESSION['nome'];
+        $email = $_SESSION['email'];
+        $role = $_SESSION['role'];
+    } else {
+        $login = false;
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-AO">
 <head>
@@ -5,6 +18,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="./src/assets/css/style.css">
+    <style>
+        .hidde {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,9 +32,11 @@
         <nav class="nav-bar">
             <ul>
                 <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
-                <li class="nav-item"><a href="./src/reserva.php" class="nav-link">RESERVA</a></li>
-                <li class="nav-item"><a href="./src/checks.php" class="nav-link">CHECK-IN/CHECK-OUT</a></li>
-                <li class="nav-item"><a href="./src/login.php" class="nav-link">LOGIN</a></li>
+                <li class="nav-item"><a href="./src/reserva.php" class="nav-link">RESERVAS</a></li>
+                <li class="nav-item"><a href="./src/sobre_nos.php" class="nav-link">SOBRE NÓS</a></li>
+                <li class="nav-item <?= $login ? '' : 'hidde'?>"><a href="#" class="nav-link">PERFIL</a></li>
+                <li class="nav-item <?= $login ? '' : 'hidde'?>"><a href="./src/php/LogOut.php" class="nav-link">LOG OUT</a></li>
+                <li class="nav-item <?= $login ? 'hidde' : ''?>"><a href="./src/login.php" class="nav-link">LOGIN</a></li>
             </ul>
         </nav>
     </header>
