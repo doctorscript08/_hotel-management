@@ -1,5 +1,7 @@
 <?php
     session_start();
+    date_default_timezone_set('Africa/Luanda');
+
     require_once './php/Conexao.php';
     require_once './php/Quarto.php';
     require_once './php/Servicos.php';
@@ -32,6 +34,14 @@
         #quartos {
             text-transform: uppercase;
         }
+
+        input[type="checkbox"] {
+            accent-color: black;
+        }
+
+        label {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -62,7 +72,7 @@
             </table>
         </div>
         <div class="form">
-            <form action="">
+            <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
                 <fieldset>
                     <h2>Nova Reserva</h2>
                     <label for="cliente">Reserva para:</label>
@@ -74,7 +84,7 @@
                             $array_quartos = $quarto->consultar_quartos_disponiveis($conector);
 
                             for ($c = 0; $c < count($array_quartos); $c++) {
-                                echo "<option value='{$array_quartos[$c]['tipo']}'>{$array_quartos[$c]['tipo']}</option>";
+                                echo "<option value='{$array_quartos[$c]['id_quarto']}'>{$array_quartos[$c]['tipo']} - {$array_quartos[$c]['preco']} AOA/dia</option>";
                             }
                         ?>
                     </select>
@@ -86,14 +96,27 @@
                         <?php
                             $servico = new Servicos();
 
-                            $array_servicos = $servico->consultar_servico($conector);
+                            $array_servicos = $servico->consultar_servicos($conector);
 
                             for ($c = 0; $c < count($array_servicos); $c++) {
+                                $id_servico = $array_servicos[$c]['id_servico'];
+                                $nome_servico = $array_servicos[$c]['nome_servico'];
+                                $preco = $array_servicos[$c]['preco'];
+
+
                                 echo "
                                     <p>
-                                        <input type='checkbox' name='{$array_servicos[$c]['id_servico']}' id='{$array_servicos[$c]['id_servico']}'>
+                                        <input 
+                                            type='checkbox' 
+                                            name='servicos[]' 
+                                            id='servico$id_servico' 
+                                            value='$id_servico'
+
+                                        >
                                         
-                                        <label for='{$array_servicos[$c]['id_servico']}'>{$array_servicos[$c]['nome_servico']}</label>
+                                        <label for='servico$id_servico'>      
+                                            $nome_servico - $preco AOA/dia
+                                        </label>
                                     </p>
                                 ";
                             }
@@ -112,6 +135,25 @@
             Desenvolvido por Inforgest Turma B.
         </p>
     </footer>
+
+    <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data_registro = date('Y-m-d H:i:s');
+
+            $check_in = new DateTime($_POST['check_in']);
+            $check_out = new DateTime($_POST['check_out']);
+            $id_quarto = $_POST['quartos'];
+            $array_servicos = !empty($_POST['servicos']) ? $_POST['servicos'] : null;
+
+            $estadia = (int) $check_out->diff($check_in)->days;
+
+            $total_quarto = $quarto->calcular_total_do_quarto($conector, $id_quarto, $estadia);
+            $total_servicos = $servico->calcular_total_dos_servicos_seleccionados($conector, $array_servicos, $estadia);
+            $total_reserva = $total_quarto + $total_servicos;
+
+            print_r($total_reserva);
+        }
+    ?>
 </body>
 
 </html>

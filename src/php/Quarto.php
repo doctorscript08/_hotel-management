@@ -34,5 +34,22 @@
                 return null;
             }
         }
+
+        public function calcular_total_do_quarto($conector, $id_quarto, $estadia) {
+            if (($conector !== null) && (!empty($conector))) {
+                try {
+                    $total = 0;
+                    $buscar_preco = $conector->query("SELECT preco FROM QUARTOS WHERE id_quarto = '{$id_quarto}'");
+
+                    $total = mysqli_num_rows($buscar_preco) > 0 ? (mysqli_fetch_assoc($buscar_preco)['preco'] * $estadia) : 0;
+
+                    return $total;
+                } catch (mysqli_sql_exception $e) {
+                    echo $e;
+                }
+            } else {
+                return 0;
+            }
+        }
     }
 ?>

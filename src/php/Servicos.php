@@ -7,7 +7,7 @@
             $this->preco = $preco;
         }
 
-        public function consultar_servico($conector) {
+        public function consultar_servicos($conector) {
             if (($conector !== null) && (!empty($conector))) {
                 try {
                     $buscar_servicos = $conector->query("SELECT * FROM SERVICOS_EXTRAS");
@@ -30,6 +30,27 @@
                 }
             } else {
                 return null;
+            }
+        }
+
+        public function calcular_total_dos_servicos_seleccionados($conector, $array_servicos, $estadia) {
+            if (($conector !== null) && (!empty($conector))) {
+                try {
+                    $total = 0;
+                    $servicos = implode(",", $array_servicos);
+
+                    $buscar_servicos = $conector->query("SELECT preco FROM SERVICOS_EXTRAS WHERE id_servico IN ({$servicos})");
+
+                    while ($precos = mysqli_fetch_assoc($buscar_servicos)) {
+                        $total += $precos['preco'];
+                    }
+
+                    return $total * $estadia;
+                } catch (mysqli_sql_exception $e) {
+                    echo $e;
+                }
+            } else {
+                return 0;
             }
         }
     }
